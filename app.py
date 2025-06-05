@@ -1,10 +1,12 @@
 # app.py
 from flask import Flask, request, jsonify
+from flask_cors import CORS # Import CORS
 import requests
 from urllib.parse import quote
 import os # For Render port
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}}) # Enable CORS for all routes and all origins
 
 TARGET_API_BASE_URL = "https://pinterestdownloader.io/frontendService/DownloaderService?url="
 
@@ -88,4 +90,4 @@ if __name__ == '__main__':
     # For local development. Render will use Gunicorn and its own port management.
     # The PORT environment variable is used by Render and other hosting providers.
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False) # debug=False for production-like local testing
+    app.run(host='0.0.0.0', port=port, debug=False)
